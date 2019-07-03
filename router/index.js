@@ -15,6 +15,7 @@ const home = (request, response) => {
 // Return all lambda students list
 const serveStudents = (request, response) => {
 	const dataRequestType = request.url.substr(request.url.length - 5);
+
 	if (dataRequestType === '.json') {
 		const username = request.url.replace('/', '').replace('.json', '');
 
@@ -40,9 +41,19 @@ const serveStudents = (request, response) => {
 			}
 		];
 
-		// find matching user
-		const user = users.filter(user => user.name.toLowerCase() === username.toLowerCase());
-		console.log(user);
+		// find matching by user name
+		const user = users.find(user => user.name.toLowerCase() === username.toLowerCase());
+
+		// Check if user  was found
+		if (user) {
+			response.writeHead(200, { 'Content-Type': 'application/json' });
+			response.write(JSON.stringify({ user: user }));
+			response.end();
+		} else {
+			response.writeHead(404, { 'Content-Type': 'application/json' });
+			response.write(JSON.stringify({ error: `User with ${username} not found` }));
+			response.end();
+		}
 	}
 };
 
