@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 /**
  * 
@@ -18,7 +19,7 @@ const replacePlaceholderWithValues = (values, fileWithPlaceholder) => {
  * @param {object} { templateName, values = {}, response } 
  */
 const views = ({ templateName, values = {}, response }) => {
-	const fileContents = fs.readFileSync(`${__dirname}/screens/${templateName} .html`, 'UTF-8');
+	const fileContents = fs.readFileSync(path.resolve(`screens/${templateName}.html`), 'UTF-8');
 
 	response.write(replacePlaceholderWithValues(values, fileContents));
 };

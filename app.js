@@ -5,6 +5,7 @@ const PORT = 8000;
 
 // Create http server
 const server = http.createServer((request, response) => {
+	router.css(request, response);
 	router.home(request, response);
 });
 
