@@ -1,5 +1,6 @@
 const renderer = require('../util');
 const fs = require('fs');
+const Profile = require('../profile/Profile');
 
 // Handle root route incoming request
 const home = (request, response) => {
@@ -12,7 +13,13 @@ const home = (request, response) => {
 	}
 };
 
-// Return all lambda students list
+//handle get single user
+const user = (request, response) => {
+	const result = serveStudents(request, response);
+	console.log(result);
+};
+
+// Handle single GET /username.json `Returns a single user`
 const serveStudents = (request, response) => {
 	const dataRequestType = request.url.substr(request.url.length - 5);
 
@@ -67,4 +74,4 @@ const css = (request, response) => {
 	}
 };
 
-module.exports = { home, css, serveStudents };
+module.exports = { home, css, serveStudents, user };
